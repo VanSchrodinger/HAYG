@@ -1,0 +1,8 @@
+{% extends 'jzyy_notes\base.html' %} {% block content %}
+<p><a href="{% url 'jzyy_notes:topic' topic.id %}">{{ topic }}</a></p>
+<p>新增：</p>
+<form action="{% url 'jzyy_notes:new_entry' topic.id %}" method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <button name="submit">新增</button>
+</form>
+{% endblock content %}

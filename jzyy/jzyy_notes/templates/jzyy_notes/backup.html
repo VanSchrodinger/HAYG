@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Vanの肯孚系统方案</title>
+
+    <link rel="stylesheet" href="../css/lib.css" type="text/css">
+    <link rel="stylesheet" href="../css/mydoc.css" type="text/css">
+    <link rel="stylesheet" href="../css/shine.css" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/2.ico">
+    <!-- <style type="text/css">
+        /* .topnav h1 .logo {
+            background-image: url("../img/log_White.png");
+        }
+         */
+        /* .login-body {
+            background: url("../img/login_bg.jpg") no-repeat;
+        } */
+        /* .line-3 img {
+            padding: 0px;
+        }
+         */
+
+        /* .display-none {
+            display: none;
+        } */
+    </style> -->
+    <script type="text/javascript" src="../js/sea.js"></script>
+    <script type="text/javascript">
+        if (window.parent != window) {
+            window.parent.location.href = '/EcimcWeb/jsp/login.do';
+        }
+
+        window._ewParams = {
+            ewParam: {
+                "limitUploadBTime": "0-0",
+                "ECIMC_DOWNLOAD_TYPE": "4",
+                "uploadMode": "0",
+                "IS_CREATE_ARCHIVE": "1",
+                "CACHE_SCAN_ITEM": "82,404,2,3,4,323,324,325,204,205,1245",
+                "EAMS_FILE_DOMAIN": "EV",
+                "LOAD_LOCAL_SUITABLE_VIDEO_SOURCENO": "(^346$)",
+                "MUST_ONE_SCAN": "1",
+                "WORDS_TYPE_BROADCAST_SEQ": "A=1,B=2",
+                "INIT_PWD": "123qwe",
+                "IS_WORDS_SCENE": "1",
+                "ECIMC_AI_HOST_CLIENT": "http://192.168.3.161:8088",
+                "LOGIN_COPYRIGHT_INFO": "Copyright ? 2020 肯孚咨询 版权所有$#$全国统一客户服务热线:8008208820$#$text-center",
+                "ALLOW_DOWNLOAD": "1",
+                "HT_OCR_SERVER_URL": "http://10.10.13.143:8880/ocr/v1/business_license",
+                "isWordVideoIntegrityCtl": "0",
+                "CACHE_SCAN_ITEM_TIME": "8",
+                "ECIMC_ALLOW_FLAW": "0",
+                "ALLOW_CUST_DOWN_PTL": "0",
+                "ECIMC_QUERY_IS_THUMBNAIL": "1",
+                "ECIMC_QUERY_IS_SHOW_BACK": "1",
+                "YMT_EXP_TIF_SEQ": "329,8,97",
+                "SERVICE_MODEL": "2",
+                "WATERMARK_USER_INFO": "1",
+                "CHECKED_LOG_SOURCE_NO": "0",
+                "DISABLE_RIGHT_CLICK": "0",
+                "ALLOW_GET_PTL": "0",
+                "PAGE_SIZE": "10,20,50",
+                "TIP_XY_CON": "1",
+                "SCAN_EAMS": "1",
+                "LOAD_LOCAL_PROXY_PIC_SOURCENO": "(^78$)",
+                "ECIMC_SCAN_MULTI_VIDEO": "0",
+                "ECIMC_SCAN_BTN_SHOW": "3",
+                "INIT_PAGE_SIZE": "20",
+                "IS_BUSI_BASIC": "0",
+                "IS_USE_AGENT_ARCHIVE": "0",
+                "ENABLE_LOGIN": "OFF",
+                "ECIMC_SCAN_DELAY_DOWNLOAD": "0",
+                "IS_SHOW_BASIC": "3",
+                "WF_TYPE": "0",
+                "IS_VIDEO_OPR_SHOW": "1",
+                "AUDITED_SCAN_ITEM": "8",
+                "ECIMC_AI_APPID": "HAGMSYS",
+                "IS_SYNC_TEMPLATE": "0",
+                "SPECIFY_SCAN_ITEM": "0",
+                "limitUploadETime": "24-24",
+                "USER_CODE_LENGTH": "6",
+                "WORDS_BROADCAST_SEQ": "0",
+                "SYNC_CREATE_ARCHIVE_TIME": "0",
+                "IS_EMERGENCY": "1",
+                "READ_PTL_TIME": "1",
+                "ECIMC_AI_TIMEOUT": "5000",
+                "ECIMC_FAST_QUERY": "1",
+                "ECIMC_AI_SWITCH": "1",
+                "DOWNLOAD_WATERMARK": "{\"file_id\":\"86682\",\"param_val\":\"1\"}",
+                "IS_OPEN_WORDS_BUSITYPE_BROADCAST_SEQ": "0",
+                "fileSizeLimit": "0",
+                "ARC_SHOW_MODE": "0",
+                "ECIMC_WORD_STYLE": "{\"font-size\":\"15px\",\"dlgFontSizePrimary\":\"12\",\"dlgFontSizeCust\":\"20\"}",
+                "PTL_COPY": "0",
+                "IS_LPAD_DEP_CODE": "1",
+                "IS_OPEN_OTHER_PTL_TEMPLET": "0",
+                "PTL_IMP_EXP": "0",
+                "upRate": "0",
+                "HEART_BEAT_REQUEST_TIME_UNIT": "1800",
+                "LOAD_LOCAL_COMPANY_PIC_SOURCENO": "(^81$)",
+                "HEART_BEAT_MAX_REQUEST": "20",
+                "IS_AUDIT_SHOW_ADD_AGREE": "0",
+                "IS_LPAD_JOB_NUM": "1",
+                "ALLOW_PRINT": "0",
+                "DELETE_LOCAL_CERT_VIDEO": "0",
+                "ECIMC_SCAN_DELETE_FILE": "0",
+                "WORDS_BUSITYPE_BROADCAST_SEQ": "0",
+                "EEAMS_PROTOCAL_SIGNATURE": "1",
+                "ECIMC_AI_HOST": "http://172.29.6.115:8088",
+                "LOGIN_CSS_FILE_DIR": "ha",
+                "URL_FACE_DOWNLOAD_DAY": "0"
+            }
+        };
+
+        function imgLoadSuccess(dom) {
+            dom.parentNode.style.display = "block";
+        }
+
+        function imgLoadError(dom) {
+            dom.parentNode.style.display = "none";
+        }
+    </script>
+</head>
+
+<body>
+    <div class="login-body">
+        <div class="header">
+            <div class="topnav" id="topnav">
+                <h1>
+                    <!-- style="background-color:rgba(87, 162, 239, 0)" -->
+                    <a class="logo"></a>
+                </h1>
+                <!--top-panel-->
+                <div class="top-panel">
+                    <ul class="top-menu pandect-menu">
+                        <li class="logo_head">
+                            <a></a>
+                        </li>
+                    </ul>
+                </div>
+                <!--top-panel end-->
+            </div>
+            <!--topnav end-->
+        </div>
+
+        <div class="g-row clearfix">
+            <div class="g-col-2"></div>
+            <div class="g-col-5">
+                <img src="../img/leftbg.png">
+            </div>
+            <div class="g-col-5">
+                <div class="login-wrapper">
+                    <div class="login-title">用户登录</div>
+                    <div class="tc-15-list-wrap form login-input">
+                        <div id="loginFm" class="position-relative">
+                            <form action="/EcimcWeb/jsp/login.do" id="login_form" method="post">
+                                <input type="hidden" name="action" value="verifyUser">
+                                <input type="hidden" name="lt" value="_c14599FAB-16F9-A15A-F5D7-F3DECE09F5D9_k6692159F-1CCD-891B-0815-68A88D77A6C2">
+                                <input type="hidden" name="_eventId" value="submit">
+                                <p class="error"></p>
+                                <ul>
+                                    <li>
+                                        <div class="icon-user">
+                                            <input class="tc-15-input-text validate[required]" id="USER_CODE" tabIndex="1" type="text" name="USER_CODE" placeholder="用户名" data-prompt-position="bottomLeft:0,0">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon-password">
+                                            <input class="tc-15-input-text validate[required]" tabIndex="2" type="password" name="USER_PWD" placeholder="密码" data-prompt-position="bottomLeft:0,0">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="login-button" id="submit">登　录</button>
+
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="login-bottom">
+                        <a href="#" class="link" id="forgetPwd">忘记密码</a>&nbsp;|
+                        <a href="#" class="link" id="register">注册</a>&nbsp;|
+                        <a href="#" class="link" id="downloadCtrl">下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="g-row ">
+        <div class="footer ">
+            <p class="line-1 text-center"><span class="slide">Copyright ? 2020 肯孚咨询公司 版权所有</span></p>
+            <p class="line-2 text-center"><span class="slide">全国统一客户服务热线:8008208820</span></p>
+            <p class="line-3 hide text-center"><img src="../img/kenfu.png" onload="imgLoadSuccess(this)" onerror="imgLoadError(this)" /></p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</body>
+
+
+<script type="text/javascript">
+    //seajs配置
+    seajs.config({
+        alias: {
+            "jquery": "js/jquery/jquery.min.js",
+            "bsGrid": "js/jquery/bsgrid/merged/bsgrid.all.min.js",
+            "dialog": "js/jquery/artDialog/lib/dialog.js",
+            "dialogPlus": "js/jquery/artDialog/lib/dialog-plus.js",
+            "ztree": "js/jquery/ztree/jquery.ztree.all-3.5.js",
+            "validation": "js/jquery/validation/js/jquery.validationEngine.js",
+            "placeholder": "js/jquery/placeholder/placeholder.js",
+            "ajaxFileUpload": "js/jquery/ajaxfileupload/ajaxfileupload.js",
+            "mousewheel": "js/jquery/mousewheel/jquery.mousewheel.js",
+            "scrollbar": "js/jquery/scrollbar/jquery.mCustomScrollbar.js",
+            "tinyScrollbar": "js/jquery/scrollbar/tiny/jquery.tinyscrollbar.js",
+            "niceScrollbar": "js/jquery/scrollbar/nice/jquery.nicescroll.js",
+            "xmlhttp": "js/common/ewXmlHttp.js",
+            "ewArtDialog": "js/common/ewArtDialog.js",
+            "ewComm": "js/common/ewComm.js",
+            "jztree": "js/common/mjtree.js",
+            "tableDnd": "js/jquery/tablednd/jquery.tablednd_0_5.js",
+            "monitor": "js/common/ewMonitor.js",
+            "swfobject": "lib/flexEdit/swfobject.js",
+            "flexpages": "lib/flexEdit/flexpages.js",
+            "flexedit": "js/common/flexedit.js",
+            "media": "js/common/media-player.js",
+            "flexeditNew": "js/common/flexedit-new.js",
+            //"mediaNew": "js/common/media-player-new.js",
+            "mediaNew": "js/common/ckplayer.js",
+            "mediaClient": "js/common/client.js",
+            "viewer": "js/services/viewer.js",
+            "ecimcViewer": "js/services/ecimcViewer.js",
+            "bootstrap": "js/services/bootstrap.min.js",
+            "protocolSignature": "js/services/query/protocol-signature.js",
+            "ddsort": "js/jquery/drag/ddsort.js",
+            "encrypt": "js/jquery/encrypt/jsencrypt.js",
+            "base64": "js/jquery/encrypt/base64.js",
+            "ecimcPdf2Swf": "js/services/query/pdf2swf.js",
+            "loadFile": "js/common/loadFile.js",
+            "Logger": "js/common/Logger.js",
+            "library": "js/common/Library.js",
+            "ewPoller": "js/common/ewPoller.js",
+            "ewTask": "js/common/ewTask.js",
+            "map": "js/common/map.js",
+            "ecimcChartFactory": "js/common/ecimcChartFactory.js",
+            //重构
+            "ewWorkspace": "js/services/comm/ewWorkspace.js",
+            "ewRender": "js/services/comm/ewRender.js",
+            "ewClient": "js/services/comm/ewClient.js",
+            "ewTreeQueryWorkspace": "js/services/comm/ewTreeQueryWorkspace.js",
+            "ewWorkspaceFactory": "js/services/comm/ewWorkspaceFactory.js",
+            "ewPicQueryWorkspace": "js/services/comm/ewPicQueryWorkspace.js",
+            "ewStoredata": "js/services/comm/ewStoredata.js",
+            "ewPageRenderFactory": "js/services/comm/ewPageRenderFactory.js",
+            "ewPicQueryPageRender": "js/services/comm/ewPicQueryPageRender.js",
+            "ewTreeQueryPageRender": "js/services/comm/ewTreeQueryPageRender.js",
+            "ewPicScanPageRender": "js/services/comm/ewPicScanPageRender.js",
+            "ewPicScanWorkspace": "js/services/comm/ewPicScanWorkspace.js",
+            "ewTreeScanPageRender": "js/services/comm/ewTreeScanPageRender.js",
+            "ewTreeScanWorkspace": "js/services/comm/ewTreeScanWorkspace.js",
+            "ewTreeQueryViewWorkspace": "js/services/comm/ewTreeQueryViewWorkspace.js",
+            "ewPicQueryFlawWorkspace": "js/services/comm/ewPicQueryFlawWorkspace.js",
+            "ewPicScanFlawWorkspace": "js/services/comm/ewPicScanFlawWorkspace.js",
+            "signScanWorkspace": "js/services/signScan/signScanWorkSpace.js",
+            "contip": "js/jquery/tip/jquery.contip.js",
+            "ewTips": "js/services/comm/ewTips.js",
+            "ewChart": "js/jquery/chart/echarts.js",
+            "ewSelect": "js/jquery/chosen/ewSelect.js",
+            "ewForm": "js/jquery/form/jquery.form.js",
+            "ewImgLazy": "js/jquery/scrollbar/imglazy/jquery.imglazy.js",
+            "ewTurnplay": "js/jquery/turnplay/turnplay.js",
+            "ewDefaultTitle": "js/common/defaultTitle.js",
+            "watermark": "js/common/watermark.js"
+        },
+        paths: {}
+    });
+    seajs.use("ewComm");
+</script>
+<script type="text/javascript">
+    seajs.use(["dialogPlus", ""], function(dialog) {
+        window.dialog = dialog;
+    });
+    seajs.use(["jquery", "dialogPlus", "placeholder", "validation", "base64"], function($) {
+
+        var login = function() {
+            if (!$("#login_form").validationEngine('validate')) {
+                return false;
+            }
+            var params = $("#login_form").ewInputValue();
+            var base64 = new Base64();
+            var passBase64 = base64.encode(params["USER_PWD"]);
+            params["USER_PWD"] = passBase64;
+            params["username"] = params["USER_CODE"];
+            params["password"] = passBase64;
+            params["_rd"] = Math.random();
+
+            var casLogin = function() {
+                $.post("/EcimcWeb/cas/login?_" + Math.random() + "&service=" + encodeURI("/EcimcWeb/jsp/j_spring_cas_security_check"),
+                    params,
+                    function(ewOutput) {
+                        try {
+                            if (ewOutput["retCode"] == "0") {
+                                dialog({
+                                    content: ewOutput["retDesc"]
+                                }).showModal();
+                                //setTimeout(function(){
+                                window.location.href = "/EcimcWeb/jsp/index.do";
+                                //},300);
+                            } else {
+                                var content = "<span style='color: #ff0000'>" + ewOutput["retDesc"] + "</span>";
+                                var d = dialog({
+                                    content: content,
+                                    quickClose: false,
+                                    onclose: function(data) {
+                                        window.location.href = "/EcimcWeb";
+                                    }
+                                }).showModal();
+                                setTimeout(function() {
+                                    d.close();
+                                    d.remove();
+                                }, 1500);
+                            }
+                        } catch (e) {
+                            window.location.href = "/EcimcWeb/jsp/index.do";
+                        }
+                        return false;
+                    },
+                    "json"
+                );
+            };
+
+            casLogin();
+        };
+
+        //绑定工号左补0 如果是纯数据则补0
+        if ("1" != "0") {
+            $("#USER_CODE").ewLpad({
+                length: $.ew.ewParam["USER_CODE_LENGTH"],
+                reg: /^\d+$/
+            });
+        }
+
+        //按下回车让其form表单提交数据
+        $("#login_form").ewAutoFormSubmit(login);
+
+        /**提交表单*/
+        $(".login-button").click(function(event) {
+            login();
+            return false;
+        });
+        //注册
+        $("#register").click(function(e) {
+            e.preventDefault();
+            top.dialog({
+                title: "注册",
+                url: '/EcimcWeb/jsp/register.do',
+                width: 680,
+                height: 450,
+                onclose: function(data) {},
+                oniframeload: function() {}
+            }).showModal();
+            return false;
+        });
+
+        /**
+         * 下载界面
+         */
+        $("#downloadCtrl").on("click", function(e) {
+            e.preventDefault();
+            var getListHtml = function() {
+                var ulHtml = '<ul class="eids-download-ul">' +
+                    '<li class="eids-download-li">' +
+                    '<span class="eids-download-span">1、<input type="hidden" name="downloadDoc" value="1"/></span><span class="eids-download-span-txt">客户端控件</span><span class="eids-download-span-dl"><a data="2" style="padding-top: 5px;">下载</a></span>' +
+                    '</li>' +
+                    /*'<li class="eids-download-li">' +
+                    '<span class="eids-download-span">2、<input type="hidden" name="downloadDoc" value="1"/></span><span class="eids-download-span-txt">客户端</span><span class="eids-download-span-dl"><a data="1">下载</a></span>' +
+                    '</li>' +*/
+                    '</ul>';
+                return ulHtml;
+            };
+
+            var ulHtml = getListHtml();
+            top.dialog({
+                title: "控件下载",
+                content: ulHtml,
+                width: 550,
+                height: 350,
+                onclose: function(data) {},
+                oniframeload: function() {}
+            }).showModal();
+        });
+        /***
+         * 下载文件
+         */
+        $(document).on("click", ".eids-download-span-dl a", function(e) {
+            e.preventDefault();
+            var dlType = $(this).attr("data");
+            switch (dlType) {
+                case '1':
+                    break;
+                case '2':
+                    window.location.href = "/ECIMC/tool_download/ECIMC_Active.zip";
+                    break;
+                case '3':
+                    break;
+                default:
+                    break;
+            }
+        });
+        /*
+        //下载
+        $("#downloadCtrl").click(function (e) {
+            e.preventDefault();
+            window.open("/ECIMC/tool_download/ECIMC_Active.zip", "_blank");
+        });*/
+        //忘记密码
+        $("#forgetPwd").click(function(e) {
+            e.preventDefault();
+            top.dialog({
+                title: "忘记密码",
+                url: '/EcimcWeb/jsp/forgetPwd.do',
+                width: 500,
+                height: 350,
+                onclose: function(data) {},
+                oniframeload: function() {}
+            }).showModal();
+            return false;
+        });
+        $("#login_form").validationEngine({
+            scroll: false
+        });
+
+        $("#genImg").click(function(e) {
+            e.preventDefault();
+            $(this).attr("src", "/EcimcWeb/service/image.do?_=" + Math.random());
+        });
+    });
+</script>
+</body>
+
+</html>

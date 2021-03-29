@@ -1,0 +1,278 @@
+@charset "utf-8";
+.topnav {
+    padding: 0 0 0 134px;
+    /*background: #57a2ef*/
+}
+
+
+/*login*/
+
+.login-body {
+    background: url("../img/login_bg.jpg") no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.login-wrapper {
+    position: relative;
+    background-color: #FFF;
+    margin: 22% auto 0;
+    width: 400px;
+    overflow: hidden;
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.login-title {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.login-input {
+    margin-left: 72px
+}
+
+.login-button,
+.logining-button {
+    background-color: #348be5;
+    width: 258px;
+    height: 32px;
+    border: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: #FFF;
+    display: block;
+    clear: both;
+}
+
+.logining-button {
+    background-color: #969696;
+    text-align: center;
+    display: none;
+}
+
+.icon-user,
+.icon-password {
+    background: url(/static/img/User.png) no-repeat 0% 50%;
+    width: 258px;
+    border: 1px solid #ddd;
+    height: 32px;
+    line-height: 32px;
+}
+
+.icon-password {
+    background: url(/static/img/password.png) no-repeat 0% 50%;
+}
+
+.icon-user input {}
+
+.icon-password input {
+    /*color:#969696;
+	float:left;
+	background:none;
+	line-height:30px;
+	text-indent:32px;*/
+}
+
+.login-bottom {
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-bottom a {
+    color: #969696;
+}
+
+.footer {
+    text-align: center;
+    top: 35px;
+    bottom: 20px;
+    font-size: 12px;
+    color: #969696;
+}
+
+.footer img {
+    padding: 20px;
+}
+
+
+/*lib.css*/
+
+.tc-15-input-text:hover,
+.tc-15-input-text:focus {
+    border-color: #57a2ef;
+    outline: 0 none
+}
+
+
+/*head*/
+
+.topnav h1 {
+    font-size: 14px;
+    line-height: 36px;
+    position: relative;
+    float: left;
+    height: 58px;
+    margin-left: -134px;
+    color: #f2f3f4;
+    /*background-color:#4d99e7;*/
+    width: 200px;
+}
+
+.topnav h1 .logo {
+    line-height: 100;
+    position: absolute;
+    top: 14px;
+    left: 50px;
+    overflow: hidden;
+    width: 500px;
+    height: 44px;
+    /*background-image: url(../image/log_White.png);*/
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+.logo_head {
+    font-size: 18px;
+    font-weight: bold;
+    background: none !important
+}
+
+.top-panel {
+    height: 58px;
+    position: relative;
+    z-index: 165;
+    margin-right: 1px
+}
+
+.top-menu li:hover,
+.top-menu li.cur,
+.top-menu li.cur:hover {
+    cursor: pointer;
+    background-color: #1b69b8
+}
+
+.top-menu li a {
+    display: block;
+    line-height: 58px;
+    padding: 0 25px;
+}
+
+.user-menu li a {
+    display: block;
+    line-height: 58px;
+    padding: 0 25px;
+}
+
+.ico_user {
+    right: 20px;
+    float: right;
+    height: 58px;
+    background-image: url(../image/user_white.png);
+    background-repeat: no-repeat;
+    position: relative
+}
+
+.ico_message {
+    right: 35px;
+    float: right;
+    height: 58px;
+    background-image: url(../image/message.png);
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.ico_user:hover {
+    background-color: #1b69b8;
+}
+
+.ico_message:hover {
+    background-color: #1b69b8;
+}
+
+
+/**/
+
+
+/******chenhan ******/
+
+.position-relative {
+    position: relative;
+}
+
+.error {
+    position: absolute;
+    color: red;
+    left: 0px;
+    top: -10px;
+}
+
+.eids-more,
+.eids-download-span-dl a {
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.eids-more,
+.eids-download-span-dl a:link {
+    color: #000000;
+    text-decoration: none
+}
+
+.eids-more,
+.eids-download-span-dl a:visited {
+    COLOR: #000000;
+    text-decoration: none
+}
+
+.eids-more,
+.eids-download-span-dl a:hover {
+    COLOR: #ff7f24;
+    /*text-decoration: underline;*/
+}
+
+.eids-more,
+.eids-download-span-dl a:active {
+    COLOR: #ff7f24;
+    /*text-decoration: underline;*/
+}
+
+.eids-download-ul {
+    list-style-type: none;
+}
+
+.eids-download-li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #EDF4F5;
+}
+
+.eids-download-span {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+    float: left;
+}
+
+.eids-download-span-txt {
+    display: inline-block;
+    float: left;
+}
+
+.eids-download-span-dl {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+}

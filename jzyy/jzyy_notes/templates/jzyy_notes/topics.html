@@ -1,0 +1,13 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<h2>主题列表：</h2>
+<small><a href="{% url 'jzyy_notes:new_topic' %}">新增主题</a></small> {% endblock header %} {% block content %}
+<ul class="list-group">
+    {% for topic in topics %}
+    <li class="list-group-item list-group-item-action">
+        <h3><a href="{% url 'jzyy_notes:topic' topic.id %}" class="text-muted">{{ topic }}</a></h3>
+    </li>
+    {% empty %}
+    <li class="list-group-item">无</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

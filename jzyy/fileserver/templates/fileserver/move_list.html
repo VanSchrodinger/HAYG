@@ -1,0 +1,175 @@
+{% extends 'jzyy_notes\inital.html' %} {% load bootstrap4%} {% block header %}
+<span><a href="{% url 'fileserver:list' 0 %}" class="text-secondary">文件</a></span> {% endblock header %} {% block content %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <tbody id="custinfo_tb">
+            {% for file_info in page.object_list %}
+            <tr>
+                {% if file_info.file_type == 'FOLDER' %}
+                <td>
+                    <a href="{% url 'fileserver:list1' file_info.file_path %}" style="color:goldenrod;" title={{file_info.file_name}}>
+                        <svg class="bi bi-folder" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.828 4a3 3 0 01-2.12-.879l-.83-.828A1 1 0 006.173 2H2.5a1 1 0 00-1 .981L1.546 4h-1L.5 3a2 2 0 012-2h3.672a2 2 0 011.414.586l.828.828A2 2 0 009.828 3v1z"/>
+                            <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 00-.996 1.09l.637 7a1 1 0 00.995.91h10.348a1 1 0 00.995-.91l.637-7A1 1 0 0013.81 4zM2.19 3A2 2 0 00.198 5.181l.637 7A2 2 0 002.826 14h10.348a2 2 0 001.991-1.819l.637-7A2 2 0 0013.81 3H2.19z" clip-rule="evenodd"/>
+                          </svg> {{file_info.file_name}}
+                    </a>
+                </td>
+                {% else %}
+                <td>
+                    {% if file_info.file_name|length > 30 %}
+                    <a href="{% url 'fileserver:download' file_info.id  %}" title={{file_info.file_name}}>{{file_info.file_name|slice:"0:30"}}...{{file_info.file_name|slice:"-4:"}}</a></td>
+                {% else %}
+                <a href="{% url 'fileserver:download' file_info.id  %}" title={{file_info.file_name}}>{{file_info.file_name}}</a></td>
+                {% endif %} {% endif %}
+
+            </tr>
+            {% empty %}
+            <td>无</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+<!-- 分页 -->
+<ul class="pagination justify-content-center">
+    <!-- {# 如果当前页还有上一页 #}  -->
+    {% if page.has_previous %}
+    <li class="page-item">
+        <!-- {# 点击a标签，跳转到上一页链接 ?index 为地址后面拼接的参数 #} -->
+        <a href="?index={{page.previous_page_number}}" class="page-link">上一页</a>
+    </li>
+    {% else %}
+    <!-- {# 如果没有上一页， 则上一页按钮不可点击 #} -->
+    <li class="disabled page-item">
+        <a href="#" class="page-link">上一页</a>
+    </li>
+    {% endif %} {% for page_number in paginator.page_range %}
+    <!-- {# 获取当前页的页码 #}  -->
+    {% if page_number == page.number %}
+    <!-- {# 如果是当前页的话，选中 #} -->
+    <li class="active page-item">
+        <a href="?index={{page_number}}" class="page-link">{{page_number}}</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a href="?index={{page_number}}" class="page-link">{{page_number}}</a>
+    </li>
+    {% endif %} {% endfor %} {% if page.has_next %}
+    <li class="page-item">
+        <a href="?index={{page.next_page_number}}" class="page-link">下一页</a>
+    </li>
+    {% else %}
+    <li class="disabled page-item">
+        <a href="#" class="page-link">下一页</a>
+    </li>
+    {% endif %}
+</ul>
+<script>
+    $.ajaxSetup({
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }
+    })
+    $(function() {
+        //全选,设置chheckbox name='all_contact_id' tbody id=custinfo_tb
+        $("input[name=all]").click(function() {
+            if (this.checked) {
+                $("#custinfo_tb :checkbox").prop("checked", true);
+            } else {
+                $("#custinfo_tb :checkbox").prop("checked", false);
+            }
+        });
+    });
+    //单选 设置name=contact_id
+    function userCheck(ths) {
+        if (ths.checked == false) {
+            $("input[name=all]:checkbox").prop('checked', false);
+        } else {
+            var count = $("input[name='d2p_list']:checkbox:checked").length;
+            if (count == $("input[name='d2p_list']:checkbox").length) {
+                $("input[name=all]:checkbox").prop("checked", true);
+            }
+        }
+    }
+    /************************模态框删除*************************/
+    $('tbody #delete_model').on('click', function() {
+        $('#file_delete').modal();
+        var $ele = $(this).parent().prevAll();
+        var id = $($ele[0]).attr('id');
+        $('#id2').val(id);
+    });
+    $('#delete_send').on('click', function() {
+            var id = $('#id2').val();
+            $.ajax({
+                url: '../file_delete/',
+                type: 'POST',
+                data: {
+                    'id': id
+                },
+                success: function(data) {
+                    if (data == 'ok') {
+                        location.reload()
+                    } else {
+                        $('#edit_error').text('提交失败！')
+                    }
+                }
+            })
+        })
+        /************************重命名*************************/
+    $('div #update_name').on('click', function() {
+        //弹出模态框
+        $('#update_name_m').modal();
+        //找到当前对象的父对象的前面的所有对象
+        var $file = $(this).parent().prevAll();
+        var text = $($file[0]).attr('title');
+        var id = $($file[0]).attr('id');
+        var path = $($file[0]).attr('name');
+        //把当前行的姓名当做默认值设置到模态框里
+        $('#file_name').val(text);
+        $('#name_id').val(id);
+        $('#folder_name').val(path);
+    });
+    //点模态框的提交
+    $('#edit_send_t').on('click', function() {
+        var folder_name = $('#folder_name').val();
+        var id = $('#name_id').val();
+        var file_name = $('#file_name').val();
+        $.ajax({
+            url: '/fileserver/edit_filename/',
+            type: 'POST',
+            data: {
+                'id': id,
+                'folder_name': folder_name,
+                'file_name': file_name
+            },
+            success: function(data) {
+                if (data == 'ok') {
+                    location.reload()
+                } else {
+                    $('#edit_error').text('提交失败！')
+                }
+            }
+        })
+    })
+</script>
+{% if messages %} {% for message in messages %}
+<script>
+    toastr.options = {
+        closeButton: true,
+        debug: true,
+        progressBar: true,
+        positionClass: "toast-top-center",
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "2000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
+    //成功消息提示，默认背景为浅绿色 
+    // toastr.success("新增成功！");
+    $('#messageModal').modal('show')
+</script> {% endfor %} {% endif %} {% endblock content %}

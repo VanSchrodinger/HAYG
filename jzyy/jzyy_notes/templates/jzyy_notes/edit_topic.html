@@ -1,0 +1,8 @@
+{% extends 'jzyy_notes\base.html' %} {% block content %}
+<p><a href="{% url 'jzyy_notes:topic' topic.id %}">返回</a></p>
+<p>编辑主题名：</p>
+<form action="{% url 'jzyy_notes:edit_topic' %}" method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <button name="submit">保存修改</button>
+</form>
+{% endblock content %}

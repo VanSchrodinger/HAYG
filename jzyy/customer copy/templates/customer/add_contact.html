@@ -1,0 +1,65 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<h4 class="mb-3">客户基本信息</h4> {% endblock header %} {% block content %}
+<hr class="mb-4">
+<form method="POST" action="{% url 'customer:add_contact' %}" class="needs-validation">
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.important.errors }} {{ form.important.label_tag }} {{ form.important }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.contact_name.errors }} {{ form.contact_name.label_tag }}{{ form.contact_name }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.position.errors }} {{ form.position.label_tag }}{{ form.position }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.contact_mobile.errors }} {{ form.contact_mobile.label_tag }}{{ form.contact_mobile }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.contact_tel.errors }} {{ form.contact_tel.label_tag }}{{ form.contact_tel }}
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            {{ form.qq.errors }} {{ form.qq.label_tag }}{{ form.qq }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ form.wechat.errors }} {{ form.wechat.label_tag }}{{ form.wechat }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ form.gender.errors }} {{ form.gender.label_tag }}{{ form.gender}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            {{ form.birth.errors }} {{ form.birth.label_tag }}{{ form.birth }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ form.nation.errors }} {{ form.nation.label_tag }}{{ form.nation }}
+        </div>
+        <div class="col-md-4 mb-3">
+            {{ form.tips.errors }} {{ form.tips.label_tag }}{{ form.tips }}
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.creator.errors }} {{ form.creator.label_tag }}{{ form.creator }}
+        </div>
+    </div>
+    <hr class="mb-4">
+    <button class="btn btn-primary btn-lg btn-block" type="submit">保存</button>
+</form>
+{% endblock content %}

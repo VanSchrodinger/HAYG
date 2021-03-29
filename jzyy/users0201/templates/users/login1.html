@@ -1,0 +1,15 @@
+{% extends 'jzyy_notes\base.html' %} {% load bootstrap4 %} {% block header %}
+<h3 class="text-center">用户登录</h3>
+{% endblock header %} {% block content %}
+<form class="form-signin" action="{% url 'users:login' %}" method="POST">
+    {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+
+    <div class="checkbox">
+        <label>
+        <input type="checkbox" value="remember-me"> 记住我
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>{% endbuttons %}
+    <input type="hidden" name="next" value="{% url 'jzyy_notes:index' %}" />
+</form>
+{% endblock content %}

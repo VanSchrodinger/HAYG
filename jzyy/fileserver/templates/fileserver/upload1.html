@@ -1,0 +1,17 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<h2>文件列表：</h2>
+{% endblock header %} {% block content %}
+
+<form action="{% url 'fileserver:upload1' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{{ form.non_field_errors }}</p>
+
+    <p>{{ form.file.label }} {{ form.file.help_text }}</p>
+
+    <p>
+        {{ form.file.errors }} {{ form.file }}
+    </p>
+
+    <p><input type="submit" value="上传" /></p>
+</form>
+{% endblock content %}

@@ -1,0 +1,186 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<h4 class="mb-3">客户基本信息</h4> {% endblock header %} {% block content %}
+<hr class="mb-4"> {% if cust_id %}
+<form method="POST" action="{% url 'customer:edit_info' cust_id %}" class="needs-validation">
+    {% else %}
+    <form method="POST" action="{% url 'customer:add_cust' %}" class="needs-validation">
+        {% endif %} {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                {{ form.cust_name.errors }} {{ form.cust_name.label_tag }}
+                <!-- <label for="{{ form.cust_name.id_for_label }}">客户简称</label>  -->
+                {{ form.cust_name }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.cust_fullname.errors }}
+                <!-- <label for="{{ form.cust_fullname.id_for_label }}">客户全称</label> -->
+                {{ form.cust_fullname.label_tag }}{{ form.cust_fullname }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.invoice.errors }}
+                <!-- <label for="{{ form.invoice.id_for_label }}">发票抬头</label>  -->
+                {{ form.invoice.label_tag }}{{ form.invoice }}
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                {{ form.email.errors }}
+                <label for="{{ form.email.id_for_label }}">Email <span class="text-muted">(选填)</span></label> {{ form.email }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.location.errors }}
+                <!-- <label for="{{ form.location.id_for_label }}">公司地址</label> -->
+                {{ form.location.label_tag }}{{ form.location }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.website.errors }}
+                <!-- <label for="{{ form.website.id_for_label }}">网址</label>  -->
+                {{ form.website.label_tag }}{{ form.website }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                {{ form.tel.errors }}
+                <label for="{{ form.tel.id_for_label }}">电话 <span class="text-muted">(选填)</span></label> {{ form.tel }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.finance.errors }}
+                <label for="{{ form.finance.id_for_label }}">融资情况 <span class="text-muted">(选填)</span></label> {{ form.finance }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.establish.errors }}
+                <label for="{{ form.establish.id_for_label }}">成立时间 <span class="text-muted">(选填)</span></label> {{ form.establish }}
+            </div>
+        </div>
+
+
+        <hr class="mb-4">
+
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                {{ form.cust_style.errors }}
+                <!-- <label for="{{ form.cust_style.id_for_label }}">客户类型</label>  -->
+                {{ form.cust_style.label_tag }}{{ form.cust_style }}
+            </div>
+            <div class="col-md-2 mb-3">
+                {{ form.city.errors }}
+                <!-- <label for="{{ form.city.id_for_label }}">城市</label>  -->
+                {{ form.city.label_tag }}{{ form.city }}
+            </div>
+            <div class="col-md-2 mb-3">
+                {{ form.profession.errors }}
+                <!-- <label for="{{ form.profession.id_for_label }}">行业</label>  -->
+                {{ form.profession.label_tag }}{{ form.profession}}
+            </div>
+            <div class="col-md-2 mb-3">
+                {{ form.source.errors }}
+                <!-- <label for="{{ form.source.id_for_label }}">来源</label>  -->
+                {{ form.source.label_tag }}{{ form.source }}
+            </div>
+            <div class="col-md-2 mb-3">
+                {{ form.develop_stage.errors }}
+                <!-- <label for="{{ form.develop_stage.id_for_label }}">发展阶段</label>  -->
+                {{ form.develop_stage.label_tag }}{{ form.develop_stage }}
+            </div>
+            <div class="col-md-2 mb-3">
+                {{ form.nature.errors }}
+                <!-- <label for="{{ form.nature.id_for_label }}">企业性质</label>  -->
+                {{ form.nature.label_tag }}{{ form.nature }}
+            </div>
+        </div>
+
+
+        <hr class="mb-4">
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                {{ form.salary_structure.errors }}
+                <!-- <label for="{{ form.salary_structure.id_for_label }}">薪资架构</label>  -->
+                {{ form.salary_structure.label_tag }}{{ form.salary_structure }}
+                <!-- <small class="text-muted">Full name as displayed on card</small> -->
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.products.errors }}
+                <!-- <label for="{{ form.products.id_for_label }}">公司产品</label>  -->
+                {{ form.products.label_tag }}{{ form.products }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.size.errors }}
+                <!-- <label for="{{ form.size.id_for_label }}">公司规模</label> -->
+                {{ form.size.label_tag }}{{ form.size }}
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                {{ form.value.errors }}
+                <!-- <label for="{{ form.value.id_for_label }}">公司年产值</label>  -->
+                {{ form.value.label_tag }}{{ form.value }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.competitor.errors }}
+                <!-- <label for="{{ form.competitor.id_for_label }}">同行竞争对手</label>  -->
+                {{ form.competitor.label_tag }}{{ form.competitor }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form.worktime.errors }}
+                <!-- <label for="{{ form.worktime.id_for_label }}">上班时间</label>  -->
+                {{ form.worktime.label_tag }}{{ form.worktime }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                {{ form.welfare1.errors }}
+                <!-- <label for="{{ form.welfare1.id_for_label }}">福利(保险、公积金)</label>  -->
+                {{ form.welfare1.label_tag }}{{ form.welfare1 }}
+            </div>
+            <div class="col-md-6 mb-3">
+                {{ form.welfare2.errors }}
+                <!-- <label for="{{ form.welfare2.id_for_label }}">福利(餐住车补)</label>  -->
+                {{ form.welfare2.label_tag }}{{ form.welfare2 }}
+            </div>
+        </div>
+        <hr class="mb-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                {{ form.is_share.errors }}
+                <!-- <label for="{{ form.is_share.id_for_label }}">分享</label>  -->
+                {{ form.is_share.label_tag }}{{ form.is_share }}
+            </div>
+            <!-- <div class="col-md-4 mb-3">
+            {{ form.creator.errors }}
+            {{ form.creator.label_tag }}{{ form.creator }}
+        </div> -->
+            <div class="col-md-4 mb-3">
+                {{ form.work_category.errors }}
+                <!-- <label for="{{ form.work_category.id_for_label }}">工作类别</label>  -->
+                {{ form.work_category.label_tag }}{{ form.work_category }}
+            </div>
+        </div>
+        <hr class="mb-4">
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                {{ form.introduction.errors }}
+                <!-- <label for="{{ form.introduction.id_for_label }}">客户简介</label>  -->
+                {{ form.introduction.label_tag }}{{ form.introduction }}
+            </div>
+            <div class="mb-3">
+                {{ form.culture.errors }}
+                <!-- <label for="{{ form.culture.id_for_label }}">企业文化</label>  -->
+                {{ form.culture.label_tag }}{{ form.culture }}
+            </div>
+            <div class="mb-3">
+                {{ form.interview_process.errors }}
+                <!-- <label for="{{ form.interview_process.id_for_label }}">面试流程</label>  -->
+                {{ form.interview_process.label_tag }}{{ form.interview_process }}
+            </div>
+            <button class="btn btn-primary btn-sm " type="submit">保存</button>
+    </form>
+    {% endblock content %}

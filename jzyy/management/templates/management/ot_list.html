@@ -1,0 +1,325 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<!-- 模态框-修改 -->
+<div class="modal fade" id="ot_update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">加班登记</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <input type="text" id="id1" style="display: none"> {{ form2.date.errors }} {{ form2.date.label_tag }} {{ form2.date }}</div>
+                    <div class="col-md-12 mb-3">
+                        {{ form2.work_type.errors }} {{ form2.work_type.label_tag }} {{ form2.work_type }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form2.work_info.errors }} {{ form2.work_info.label_tag }} {{ form2.work_info }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form2.name.errors }} {{ form2.name.label_tag }} {{ form2.name }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form2.expense.errors }} {{ form2.expense.label_tag }} {{ form2.expense }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form2.extra.errors }} {{ form2.extra.label_tag }} {{ form2.extra }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" id="msg1" ></span>关闭</button>
+                <button class="btn btn-primary btn-sm " id="edit_send" type="submit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框-登记 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">加班登记</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        {{ form.date.errors }} {{ form.date.label_tag }} {{ form.date }}</div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.work_type.errors }} {{ form.work_type.label_tag }} {{ form.work_type }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.work_info.errors }} {{ form.work_info.label_tag }} {{ form.work_info }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.name.errors }} {{ form.name.label_tag }} {{ form.name }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.expense.errors }} {{ form.expense.label_tag }} {{ form.expense }}
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.extra.errors }} {{ form.extra.label_tag }} {{ form.extra }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true" id="msg1" ></span>关闭</button>
+                <button class="btn btn-primary btn-sm " id="add_send" type="submit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 查询区 -->
+<form method="POST" action="{% url 'management:ot_search' %}" class="needs-validation mt-2 ">
+    {% csrf_token %}
+    <div class="row pl-3">
+        <label>{{ form1.name.label_tag }}</label>
+        <div class="col-auto ">
+            {{ form1.name.errors }} {{ form1.name }}
+        </div>
+        <div class="col-sm mr-auto ">
+            <button class="btn btn-info btn-sm" type="submit">查询</button>
+        </div>
+</form>
+<div class="col-auto">
+    <form method="post" action="{% url 'management:ot_batch' %}">
+        {% csrf_token %}
+        <button type="button" class="  btn btn-secondary btn-sm  " data-toggle="modal" data-target="#myModal">登记</button>
+        <!-- <button type="button" class="  btn btn-secondary btn-sm  " data-toggle="modal" data-target="#ot_update">修改</button> -->
+        <input type="submit" class="btn btn-info btn-sm" name="delete_list" value="删除">
+</div>
+</div>
+{% endblock header %} {% block content %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="all"></th>
+                <th>加班日期</th>
+                <th>加班类型</th>
+                <th>加班事项</th>
+                <th>加班人员</th>
+                <th>餐费支出</th>
+                <th>补充说明</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+
+        <tbody id="custinfo_tb">
+            {% for ot_info in page.object_list %}
+            <tr>
+                <td id="{{ot_info.id}}"><input type="checkbox" name="d2p_list" value="{{ot_info.id}}" onclick="userCheck(this)"></td>
+                <td>{{ot_info.date}}</td>
+                <td>{{ot_info.work_type}}</td>
+
+                {% if ot_info.work_info|length > 12 %}
+                <td title={{ot_info.work_info}}>{{ot_info.work_info|slice:"0:12"}}...</td>
+                {% else %}
+                <td title={{ot_info.work_info}}>{{ot_info.work_info}}</td>
+                {% endif%} {% if ot_info.name|length > 12 %}
+                <td title={{ot_info.name}}>{{ot_info.name|slice:"0:12"}}...</td>
+                {% else %}
+                <td title={{ot_info.name}}>{{ot_info.name}}</td>
+                {% endif%}
+                <td>{{ot_info.expense}}</td>
+                <td>{{ot_info.extra}}</td>
+                <td>
+                    <a id='update_model' href="#">
+                        <svg class="bi bi-pencil-square " width="1em " height="1em " viewBox="0 0 16 16 " fill="currentColor " xmlns="http://www.w3.org/2000/svg ">
+                            <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z "/>
+                            <path fill-rule="evenodd " d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z " clip-rule="evenodd "/>
+                          </svg></a>
+                </td>
+            </tr>
+            {% empty %}
+            <td>无</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+<!-- 分页 -->
+<ul class="pagination justify-content-center ">
+    {% if page.has_previous %}
+    <li class="page-item ">
+        <a href="?index={{page.previous_page_number}} " class="page-link ">上一页</a>
+    </li>
+    {% else %}
+    <li class="disabled page-item ">
+        <a href="# " class="page-link ">上一页</a>
+    </li>
+    {% endif %} {% for page_number in paginator.page_range|slice:"0:15 " %} {% if page_number == page.number %}
+    <li class="active page-item ">
+        <a href="?index={{page_number}} " class="page-link ">{{page_number}}</a>
+    </li>
+    {% else %}
+    <li class="page-item ">
+        <a href="?index={{page_number}} " class="page-link ">{{page_number}}</a>
+    </li>
+    {% endif %} {% endfor %} {% if page.has_next %}
+    <li class="page-item ">
+        <a href="?index={{page.next_page_number}} " class="page-link ">下一页</a>
+    </li>
+    {% else %}
+    <li class="disabled page-item ">
+        <a href="# " class="page-link ">下一页</a>
+    </li>
+    {% endif %}
+</ul>
+
+<script>
+    $(function() {
+        //全选,设置chheckbox name='all_contact_id' tbody id=custinfo_tb
+        $("input[name=all] ").click(function() {
+            if (this.checked) {
+                $("#custinfo_tb :checkbox ").prop("checked ", true);
+            } else {
+                $("#custinfo_tb :checkbox ").prop("checked ", false);
+            }
+        });
+    });
+    //单选 设置name=contact_id
+    function userCheck(ths) {
+        if (ths.checked == false) {
+            $("input[name=all]:checkbox ").prop('checked', false);
+        } else {
+            var count = $("input[name='d2p_list' ]:checkbox:checked ").length;
+            if (count == $("input[name='d2p_list' ]:checkbox ").length) {
+                $("input[name=all]:checkbox ").prop("checked ", true);
+            }
+        }
+    };
+</script>
+<script>
+    $.ajaxSetup({
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }
+        })
+        /************************模态框添加*************************/
+        //点模态框里的提交，触发ajax事件，提交数据，接着拿到返回的数据。
+        //把data以POST的类型通过这个地址发送给服务器，服务器处理成功后，启动函数处理返回的数据。
+        //location.reload()是跳到当前页面。
+    $('#add_send').on('click', function() {
+        var date = $('#date').val();
+        var work_type = $('#work_type').val();
+        var extra = $('#extra').val();
+        var expense = $('#expense').val();
+        var name = $('#name').val();
+        var work_info = $('#work_info').val();
+        $.ajax({
+            url: '../add_ot/',
+            type: 'POST',
+            data: {
+                'date': date,
+                'work_type': work_type,
+                'extra': extra,
+                'expense': expense,
+                'name': name,
+                'work_info': work_info
+            },
+            success: function(data) {
+                if (data == 'ok') {
+                    location.reload()
+                } else {
+                    alert('请检查必填项！')
+                }
+            }
+        })
+    });
+    /************************模态框编辑*************************/
+    //点模态框编辑
+    $('tbody #update_model').on('click', function() {
+        //弹出模态框
+        $('#ot_update').modal();
+        //找到当前对象的父对象的前面的所有对象
+        var $ele = $(this).parent().prevAll();
+        var id = $($ele[6]).attr('id');
+        var date = $($ele[5]).text();
+        var work_type = $($ele[4]).text();
+        var work_info = $($ele[3]).attr('title');
+        var name = $($ele[2]).attr('title');
+        var expense = $($ele[1]).text();
+        var extra = $($ele[0]).text();
+        //把当前行的姓名当做默认值设置到模态框里
+        $('#date1').val(date);
+        $('#work_type1').val(work_type);
+        $('#work_info1').val(work_info);
+        $('#name1').val(name);
+        $('#expense1').val(expense);
+        $('#extra1').val(extra);
+        $('#id1').val(id);
+    });
+    //点模态框的提交
+    $('#edit_send').on('click', function() {
+        var date = $('#date1').val();
+        var work_type = $('#work_type1').val();
+        var work_info = $('#work_info1').val();
+        var name = $('#name1').val();
+        var expense = $('#expense1').val();
+        var extra = $('#extra1').val();
+        var id = $('#id1').val();
+        $.ajax({
+            url: '../ot_update/',
+            type: 'POST',
+            data: {
+                'id': id,
+                'date': date,
+                'work_type': work_type,
+                'extra': extra,
+                'expense': expense,
+                'name': name,
+                'work_info': work_info
+            },
+            success: function(data) {
+                if (data == 'ok') {
+                    location.reload()
+                } else {
+                    $('#edit_error').text('提交失败！')
+                }
+            }
+        })
+    })
+</script>
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#date', //指定元素
+        value: new Date()
+    });
+    laydate.render({
+        elem: '#date1' //指定元素
+    });
+</script>
+{% if messages %} {% for message in messages %}
+<script>
+    toastr.options = {
+        closeButton: true,
+        debug: true,
+        progressBar: true,
+        positionClass: "toast-top-center ",
+        onclick: null,
+        showDuration: "300 ",
+        hideDuration: "1000 ",
+        timeOut: "2000 ",
+        extendedTimeOut: "1000 ",
+        showEasing: "swing ",
+        hideEasing: "linear ",
+        showMethod: "fadeIn ",
+        hideMethod: "fadeOut "
+    };
+    //成功消息提示，默认背景为浅绿色 
+    // toastr.success("新增成功！ ");
+    $('#messageModal').modal('show')
+</script> {% endfor %} {% endif %} {% endblock content %}

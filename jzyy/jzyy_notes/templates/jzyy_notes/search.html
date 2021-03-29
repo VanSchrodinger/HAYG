@@ -1,0 +1,13 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<h2>资源列表：</h2>
+{% endblock header %} {% block content %} {% if topic_list %} {% for topic in topic_list %}
+<h3>{{topic.text}}</h3>
+<p>{{topic.date_added}}</p>
+{% endfor %} {% else %}
+<h4>没有查询到数据</h4>
+{% endif %} {% if file_list %} {% for file in file_list %}
+<h3>{{file.file_name}}</h3>
+<p>{{file.upload_time}}</p>
+{% endfor %} {% else %}
+<h4>没有查询到数据</h4>
+{% endif %} {% endblock content %} ji

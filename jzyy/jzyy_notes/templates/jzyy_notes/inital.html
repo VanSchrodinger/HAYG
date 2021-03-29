@@ -1,0 +1,133 @@
+{% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content='IE=edge'>
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>华安运管知识库</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '2.ico' %}">
+    <link href="{% static 'signin.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'form-validation.css' %}" rel="stylesheet"> -->
+    {% bootstrap_css %} {% bootstrap_javascript %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="/static/js/bootstrap-multiselect.js"></script>
+    <link href="/static/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="/static/js/laydate/laydate.js"></script>
+    <style type="text/css">
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+    <style type="text/css">
+        .dropdown-submenu {
+            position: relative;
+        }
+        
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+        
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+        
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #fff;
+        }
+        
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+        
+        .dropdown-submenu.pull-left>.dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            {% block header %}{% endblock header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+    <!--/container-->
+    <button type="button" id="back_top" class="back_top">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-double-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z"/>
+            <path fill-rule="evenodd" d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+          </svg>
+        </button>
+    <style>
+        .back_top {
+            position: fixed;
+            right: 5em;
+            bottom: 100px;
+            width: 3.5rem;
+            height: 3.5rem;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            border-radius: 33%;
+            display: none;
+        }
+        
+        .back_top:focus {
+            outline: none;
+        }
+    </style>
+    <script>
+        $(function() {
+            $('#back_top').click(function() {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 150);
+            });
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 150) {
+                    $('#back_top').fadeIn(150);
+                } else {
+                    $('#back_top').stop().fadeOut(150);
+                }
+            });
+            scroll();
+        })
+    </script>
+</body>
+
+
+</html>

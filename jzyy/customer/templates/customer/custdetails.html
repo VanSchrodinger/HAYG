@@ -1,0 +1,510 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<div class="h4 mt-1">{{ custinfo.cust_name }}
+    <small><span class="badge  badge-info">{{ custinfo.cust_style }}</span></small>
+</div>
+
+{% endblock header %} {% block content %}
+
+
+<!-- 模态框1 -->
+<form method="POST" action="{% url 'customer:add_contact' %}" class="needs-validation">
+    {% csrf_token %}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">新增联系人</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.important.errors }} {{ form.important.label_tag }} {{ form.important }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.contact_name.errors }} {{ form.contact_name.label_tag }}{{ form.contact_name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.position.errors }} {{ form.position.label_tag }}{{ form.position }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.cust.errors }} {{ form.cust.label_tag }}{{ form.cust }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.contact_mobile.errors }} {{ form.contact_mobile.label_tag }}{{ form.contact_mobile }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.contact_tel.errors }} {{ form.contact_tel.label_tag }}{{ form.contact_tel }}
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.qq.errors }} {{ form.qq.label_tag }}{{ form.qq }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.wechat.errors }} {{ form.wechat.label_tag }}{{ form.wechat }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.gender.errors }} {{ form.gender.label_tag }}{{ form.gender}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.birth.errors }} {{ form.birth.label_tag }}{{ form.birth }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.nation.errors }} {{ form.nation.label_tag }}{{ form.nation }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.tips.errors }} {{ form.tips.label_tag }}{{ form.tips }}
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.creator.errors }} {{ form.creator.label_tag }}{{ form.creator }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button class="btn btn-primary btn-sm " type="submit">保存</button>
+                </div>
+</form>
+</div>
+</div>
+</div>
+</form>
+<!-- 模态框2 -->
+<form method="POST" action="{% url 'customer:edit_contact' 35 %}" class="needs-validation">
+    {% csrf_token %}
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">新增联系人</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.important.errors }} {{ form.important.label_tag }} {{ form.important }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.contact_name.errors }} {{ form.contact_name.label_tag }}{{ form.contact_name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.position.errors }} {{ form.position.label_tag }}{{ form.position }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.cust.errors }} {{ form.cust.label_tag }}{{ form.cust }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.contact_mobile.errors }} {{ form.contact_mobile.label_tag }}{{ form.contact_mobile }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.contact_tel.errors }} {{ form.contact_tel.label_tag }}{{ form.contact_tel }}
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.qq.errors }} {{ form.qq.label_tag }}{{ form.qq }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.wechat.errors }} {{ form.wechat.label_tag }}{{ form.wechat }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.gender.errors }} {{ form.gender.label_tag }}{{ form.gender}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.birth.errors }} {{ form.birth.label_tag }}{{ form.birth }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.nation.errors }} {{ form.nation.label_tag }}{{ form.nation }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.tips.errors }} {{ form.tips.label_tag }}{{ form.tips }}
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.creator.errors }} {{ form.creator.label_tag }}{{ form.creator }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button class="btn btn-primary btn-sm " type="submit">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- 导航区 -->
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="nav-item active">
+        <a class="nav-link text-secondary active" href="#custinfo" role="tab" data-toggle="tab">基础信息</a></li>
+    <li role="presentation" class="nav-item ">
+        <a class="nav-link text-secondary" href="#contacts" role="tab" data-toggle="tab">联系人</a></li>
+    <li role="presentation text-secondary" class="nav-item">
+        <a class="nav-link text-secondary" href="#programs" role="tab" data-toggle="tab">项目列表</a></li>
+    <li role="presentation text-secondary" class="nav-item">
+        <a class="nav-link text-secondary" href="#people" role="tab" data-toggle="tab">推荐</a></li>
+</ul>
+<!-- 面板区 -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active container" id="custinfo">
+        <div class="row bg-light text-black border mt-1">
+            <div class="col-sm mr-auto  pt-1"><span>基本信息</span></div>
+
+            <div class="col-auto ">
+                <button class="btn btn-secondary btn-sm" type="submit">编辑</button>
+            </div>
+        </div>
+        <div class="row border ">
+            <div class="col-sm-6">
+                <dl class="row mt-3">
+                    <dt class="col-sm-6 text-black-50 font-weight-normal"> 公司全称：</dt>
+                    <dd>{{ custinfo.cust_fullname|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">发票抬头：</dt>
+                    <dd>{{ custinfo.invoice|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">行业：</dt>
+                    <dd>{{ custinfo.profession|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">城市：</dt>
+                    <dd>{{ custinfo.city|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">电话：</dt>
+                    <dd>{{ custinfo.tel|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">网址：</dt>
+                    <dd>{{ custinfo.website|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">地址：</dt>
+                    <dd>{{ custinfo.location|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">邮箱：</dt>
+                    <dd>{{ custinfo.email|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">发展阶段：</dt>
+                    <dd>{{ custinfo.develop_stage|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">融资情况：</dt>
+                    <dd>{{ custinfo.finance|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">成立时间：</dt>
+                    <dd>{{ custinfo.establish|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">来源：</dt>
+                    <dd>{{ custinfo.source|default:'&nbsp;'}}</dd>
+                </dl>
+            </div>
+            <div class="col-sm-6">
+                <dl class="row mt-3">
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">薪资架构：</dt>
+                    <dd>{{ custinfo.salary_structure|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">公司产品：</dt>
+                    <dd>{{ custinfo.products|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">公司规模：</dt>
+                    <dd>{{ custinfo.size|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">公司年产值：</dt>
+                    <dd>{{ custinfo.value|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">公司同行竞争对手：</dt>
+                    <dd>{{ custinfo.competitor|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">上班时间：</dt>
+                    <dd>{{ custinfo.worktime|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">福利(保险、公积金)：</dt>
+                    <dd>{{ custinfo.welfare1|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">福利(餐住车补)：</dt>
+                    <dd>{{ custinfo.welfare2|default_if_none:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">企业性质：</dt>
+                    <dd>{{ custinfo.nature|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">创建者：</dt>
+                    <dd>{{ custinfo.creator|default:'&nbsp;'}}</dd>
+                    <dt class="col-sm-6 text-black-50 font-weight-normal">创建日期：</dt>
+                    <dd>{{ custinfo.create_date|default:'&nbsp;'}}</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="row bg-light text-black border mt-1 "><span class="ml-3">客户简介</span></div>
+        <div class="row border">
+            <div class="col ">{{ custinfo.introduction}}</div>
+        </div>
+        <div class="row bg-light text-black border mt-1"><span class="ml-3">企业文化</span></div>
+        <div class="row border">
+            <div class="col">{{ custinfo.culture}}</div>
+        </div>
+        <div class="row bg-light text-black border mt-1"><span class="ml-3">面试流程</span></div>
+        <div class="row border">
+            <div class="col">{{ custinfo.interview_process}}</div>
+        </div>
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane " id="contacts">
+        <form method="post" action="{% url 'customer:contact_operation' %}" id="tb">
+            {% csrf_token %}
+            <div class="row mt-1 mb-1">
+                <div class="col-sm mr-auto">
+                    <button type="button" class="  btn btn-secondary btn-sm  " data-toggle="modal" data-target="#myModal">新增</button>
+                    <a href="#myModal" class="btn btn-secondary btn-sm" data-toggle="modal">链接“新增”</a>
+                    <a href="{% url 'customer:add_contact' %}" class="btn btn-secondary btn-sm" data-toggle="modal">链接“新增”</a>
+                    <a href="#myModal" class="btn btn-secondary btn-sm" data-toggle="modal" onclick="prom()" data-placement="top" title="使用模态框">JS“新增”</a>
+                    <!-- 触发模态弹出窗元素 -->
+                    <button class="btn btn-primary" type="button" id="hitme">点击我</button>
+
+                    <input type="submit" class="btn btn-secondary btn-sm" name="delete_list" value="删除">
+                    <input type="checkbox" name="all_contact_id">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class=" btn btn-secondary btn-sm ">LOL</button>
+                </div>
+            </div>
+
+            {% for contact in contacts %}
+
+            <div class="container border mb-2">
+                <div class="row mt-1 ">
+                    <div class=" col mr-auto">
+                        <input type="checkbox" name="contact_id" value="{{contact.id}}" onclick="userCheck(this)">
+                        <!-- <input type="checkbox" ng-model="p.checked" class="ng-pristine ng-untouched ng-valid"> -->
+                        <span class="h5 font-weight-bold" id="test_id">{{contact.contact_name}}</span>
+                        <a href="#" data-toggle="modal" data-target="#myModal" onclick="edit_contact1()">
+                            <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
+                              </svg></a>
+                        <!-- <button class="btn btn-primary" type="button" id="hitme1">模态框编辑</button> -->
+
+                        <a href="">
+                            <svg class="bi bi-text-indent-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M2 3.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm.646 2.146a.5.5 0 01.708 0l2 2a.5.5 0 010 .708l-2 2a.5.5 0 01-.708-.708L4.293 8 2.646 6.354a.5.5 0 010-.708zM7 6.5a.5.5 0 01.5-.5h6a.5.5 0 010 1h-6a.5.5 0 01-.5-.5zm0 3a.5.5 0 01.5-.5h6a.5.5 0 010 1h-6a.5.5 0 01-.5-.5zm-5 3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                                  </svg>
+                        </a>
+                    </div>
+                    <div class="text-muted col-auto ">
+                        <small>创建者:</small>
+                        <small class="mr-3">{{contact.creator}}</small>
+                        <small>创建日期:</small>
+                        <small>{{contact.create_date}}</small>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col"><small class="text-muted"><small class="">手机:</small>
+                        <a class=" mr-3">{{contact.contact_mobile}}</a>
+                        <small class=" ">电话:</small>
+                        <a class="mr-3 ">{{contact.contact_tel}}</a>
+                        <small class=" ">邮箱:</small>
+                        <a class="mr-3 ">{{contact.email}}</a></small>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="programs">
+        <form method="post" action="{% url 'customer:contact_operation' %}">
+            {% csrf_token %}
+            <div class="row mt-1 mb-1">
+                <div class="col-sm mr-auto">
+                    <button type="button" class="  btn btn-secondary btn-sm  " data-toggle="modal" data-target="#myModal">操作</button>
+                    <input type="submit" class="btn btn-secondary btn-sm" name="delete_list" value="删除">
+                    <!-- <button type="submit" class=" btn btn-secondary btn-sm ">删除</button> -->
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class=" btn btn-secondary btn-sm ">LOL</button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-sm  ">
+                    <tbody>
+                        {% for contact in contacts %}
+                        <tr class="d-flex ">
+                            <td class="col-sm-1   ">
+                                <span class="badge  badge-warning text-white mt-3">{{contact.contact_name}}</span>
+                            </td>
+                            <td class="col-sm-4">
+                                <a class="text-dark" target="_blank " href=" ">策划高级经理</a>
+                                <br>
+                                <small class="text-muted">开始时间 2020-04-08&nbsp; 最近更新 14天前</small>
+                            </td>
+                            <td class="col-sm-4 pt-3">
+                                <a class="text-dark" target="_blank " href=" ">人选:1</a>
+                                <a class="text-dark" target="_blank " href=" ">面试:0</a>
+                                <a class="text-dark" target="_blank " href=" ">推荐:0</a>
+                            </td>
+                            <!-- <td class="col"></td> -->
+                            <td class="col text-right">
+
+                                <button type="button" class=" btn btn-secondary btn-sm" data-toggle="modal" data-target="#myModal">新增</button>
+                                <br>
+                                <small class="text-muted"><small class="">手机:</small>
+                                <a class=" mr-3">{{contact.contact_mobile}}</a>
+                                <small class=" ">电话:</small>
+                                <a class=" ">{{contact.contact_tel}}</a>
+                            </td>
+
+
+                            {% empty %}
+                            <td>无</td>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div role="tabpanel " class="tab-pane " id="people">
+        <form method="post" action="{% url 'customer:contact_operation' %}">
+            {% csrf_token %}
+            <div class="row mt-1 mb-1">
+                <div class="col-sm mr-auto">
+                    <button type="button" class="  btn btn-secondary btn-sm  " data-toggle="modal" data-target="#myModal">操作</button>
+                    <input type="submit" class="btn btn-secondary btn-sm" name="delete_list" value="删除">
+                    <!-- <button type="submit" class=" btn btn-secondary btn-sm ">删除</button> -->
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class=" btn btn-secondary btn-sm ">LOL</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-sm">
+                    <thead class="thead-light">
+                        <tr class="">
+                            <th>项目</th>
+                            <th>姓名</th>
+                            <th>公司</th>
+                            <th>职位</th>
+                            <th>年薪</th>
+                            <th>年龄</th>
+                            <th>学历</th>
+                            <th>人才状态</th>
+                            <th>备注</th>
+                            <th>操作时间</th>
+                            <th>用户</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for contact in contacts %}
+                        <tr>
+                            <td><input type="checkbox" name="d2p_list" value="{{row.id}}">
+                                <a href="">{{row.cust_name}}</a></td>
+                            <td>
+                                <a title="编辑" href="javascript:;" data-toggle="modal" data-target="#myModal" onclick="edit_contact(this)" class="btn btn-sm btn-info " style="text-decoration:none">modal-edit</a>
+                            </td>
+                            <td>{{contact.contact_name}}</td>
+                            <td>{{contact.position}}</td>
+                            <td>{{contact.contact_name}}</td>
+                            <td>{{contact.contact_name}}</td>
+                            <td>0</td>
+                            <td>{{contact.contact_name}}</td>
+                            <td>{{contact.contact_name}}</td>
+                            <td>{{contact.contact_name}}</td>
+                            <td>{{contact.contact_name}}</td>
+
+                        </tr>
+                        {% empty %}
+                        <td>无</td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    $(function() {
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            // 获取已激活的标签页的名称
+            var activeTab = $(e.target).text();
+            // 获取前一个激活的标签页的名称
+            var previousTab = $(e.relatedTarget).text();
+            $(".active-tab span").html(activeTab);
+            $(".previous-tab span").html(previousTab);
+        });
+    });
+
+    /*Bootstrap 3：在页面刷新时保持选中的选项卡*/
+    $(document).ready(function() {
+        if (location.hash) {
+            $("a[href='" + location.hash + "']").tab("show");
+        }
+        $(document.body).on("click", "a[data-toggle='tab']", function(event) {
+            location.hash = this.getAttribute("href");
+        });
+    });
+    $(window).on("popstate", function() {
+        var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+        $("a[href='" + anchor + "']").tab("show");
+    });
+
+    $(function() {
+        //全选,设置chheckbox name='all_contact_id' tbody id=tb
+        $("input[name=all_contact_id]").click(function() {
+            if (this.checked) {
+                $("#tb :checkbox").prop("checked", true);
+            } else {
+                $("#tb :checkbox").prop("checked", false);
+            }
+        });
+    });
+    //单选 设置name=contact_id
+    function userCheck(ths) {
+        if (ths.checked == false) {
+            $("input[name=all_contact_id]:checkbox").prop('checked', false);
+        } else {
+            var count = $("input[name='contact_id']:checkbox:checked").length;
+            if (count == $("input[name='contact_id']:checkbox").length) {
+                $("input[name=all_contact_id]:checkbox").prop("checked", true);
+            }
+        }
+    }
+    //JS 调用模态框
+    // $(function() {
+    //     $("#hitme1").click(function() {
+    //         $("#editModal").modal();
+    //         var row = $(ths).parent().prevAll(); /*prevAll()表示上面所以的标签*/
+    //         var contentid = $(row[0]).text();
+    //         var content = $(row[1]).text();
+    //         $('#eidtId').val(content); /*把获取到列表的数据，显示在div对应id= ‘’的编辑框中*/
+    //         $('#eidtTitle').val(contentid);
+    //     });
+    // });
+    // //回显数据到模态框
+    // function edit_contact(obj) {
+    //     var $td = $(obj).parents('tr').children('td');　　
+    //     var td_name = $td.eq(2).text();
+    //     var td_position = $td.eq(3).text();
+    //     $("#contact_name").val(td_name);
+    //     $("#position").val(td_position);
+    // }
+
+    function edit_contact1() {
+        var obj = document.getElementById('test_id');　
+        var td_name = obj.innerText;
+        $("#contact_name").val(td_name);
+    }
+</script>
+
+{% endblock content %}

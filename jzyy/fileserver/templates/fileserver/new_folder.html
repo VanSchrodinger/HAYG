@@ -1,0 +1,8 @@
+{% extends 'jzyy_notes\base.html' %} {% load bootstrap4 %} {% block header %}
+<h4>新增一个文件夹：</h4>
+{% endblock header %} {% block content %}
+<form action="{% url 'fileserver:new_folder' %}" method="POST" class="form">
+    {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+    <button name="submit" class="btn btn-primary">新增</button> {% endbuttons %}
+</form>
+{% endblock content %}

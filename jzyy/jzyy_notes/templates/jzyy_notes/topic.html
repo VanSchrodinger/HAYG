@@ -1,0 +1,193 @@
+{% extends 'jzyy_notes\base.html' %} {% load bootstrap4%}{% block header %}
+
+<!-- 修改topic -->
+<div class="modal fade" id="update_topic_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">修改</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <input type="text" id="tp_id" style="display: none"> {{ form.text.errors }} {{ form.text.label_tag }} {{ form.text }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" id="msg1" ></span>关闭</button>
+                <button class="btn btn-primary btn-sm " id="edit_send_t" type="submit">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 修改entry -->
+<div class="modal fade" id="update_entry_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">编辑</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <!-- {% bootstrap_form form1%} -->
+                        <div class="col-md-12 mb-3">
+                            <input type="text" id="e_id" style="display: none">
+                            <input type="text" id="date_added" style="display: none"> {{ form1.title.errors }} {{ form1.title.label_tag }} {{ form1.title }}</div>
+                        <div class="col-md-12 mb-3">
+                            <input type="text" id="t_id" style="display: none"> {{ form1.text.errors }} {{ form1.text.label_tag }} {{ form1.text }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true" id="msg1" ></span>关闭</button>
+                <button class="btn btn-primary btn-sm " id="edit_send" type="submit">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="h3 mt-1" id="{{ topic.id }}">{{ topic }}</div>
+<small><a  id="update_topic" href="#" class="badge badge-info badge-sm ">编辑</a>
+</small> {% endblock header %} {% block content %}
+<p><a href="{% url 'jzyy_notes:new_entry' topic.id %}" class="btn btn-secondary btn-sm">新增</a></p>
+{% for entry in entries %}
+<div class="blog-post">
+    <h4 class="blog-post-title" id="{{entry.id}}">{{ entry.title }}</h4>
+    <p class='blog-post-meta' id="{{ topic.id }}">{{ entry.date_added|date:'m-d, Y H:i'}}</p>
+    <small><a href="#"  id="update_entry">编辑</a></small>
+    <div class="panel-body"> {{ entry.text|linebreaks}}
+    </div>
+    <hr>
+</div>
+{% empty %} 这里啥都没有哦~ {% endfor %}
+<script>
+    $.ajaxSetup({
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            }
+        })
+        /************************模态框添加*************************/
+        //点模态框里的提交，触发ajax事件，提交数据，接着拿到返回的数据。
+        //把data以POST的类型通过这个地址发送给服务器，服务器处理成功后，启动函数处理返回的数据。
+        //location.reload()是跳到当前页面。
+    $('#add_send').on('click', function() {
+        var date = $('#date').val();
+        var work_type = $('#work_type').val();
+        var extra = $('#extra').val();
+        var expense = $('#expense').val();
+        var name = $('#name').val();
+        var work_info = $('#work_info').val();
+        $.ajax({
+            url: '../add_ot/',
+            type: 'POST',
+            data: {
+                'date': date,
+                'work_type': work_type,
+                'extra': extra,
+                'expense': expense,
+                'name': name,
+                'work_info': work_info
+            },
+            success: function(data) {
+                if (data == 'ok') {
+                    location.reload()
+                } else {
+                    alert('请检查必填项！')
+                }
+            }
+        })
+    });
+    /************************模态框编辑*************************/
+    //点模态框编辑entry
+    $('div #update_entry').on('click', function() {
+        //弹出模态框
+        $('#update_entry_m').modal();
+        //找到当前对象的父对象的前面的所有对象
+        var $entry = $(this).parent().prevAll();
+        var $entry1 = $(this).parent().nextAll();
+        var id = $($entry[1]).attr('id');
+        var title = $($entry[1]).text();
+        var date_added = $($entry[0]).text();
+        var text = $($entry1[0]).text();
+        var topic_id = $($entry[0]).attr('id');
+        //把当前行的姓名当做默认值设置到模态框里
+        $('#text').val(text);
+        $('#title').val(title);
+        $('#e_id').val(id);
+        $('#t_id').val(topic_id);
+        $('#date_added').val(date_added);
+    });
+    //点模态框的提交
+    $('#edit_send').on('click', function() {
+            var text = $('#text').val();
+            var title = $('#title').val();
+            var date_added = $('#date_added').val();
+            var id = $('#e_id').val();
+            var topic_id = $('#t_id').val();
+            $.ajax({
+                url: '../edit_entry/',
+                type: 'POST',
+                data: {
+                    'id': id,
+                    'topic_id': topic_id,
+                    'text': text,
+                    'title': title,
+                    'date_added': date_added
+                },
+                success: function(data) {
+                    if (data == 'ok') {
+                        location.reload()
+                    } else {
+                        $('#edit_error').text('提交失败！')
+                    }
+                }
+            })
+        })
+        //修改topic
+    $('div #update_topic').on('click', function() {
+        //弹出模态框
+        $('#update_topic_m').modal();
+        //找到当前对象的父对象的前面的所有对象
+        var $topic = $(this).parent().prevAll();
+        var text = $($topic[0]).text();
+        var id = $($topic[0]).attr('id');
+        //把当前行的姓名当做默认值设置到模态框里
+        $('#text1').val(text);
+        $('#tp_id').val(id);
+    });
+    //点模态框的提交
+    $('#edit_send_t').on('click', function() {
+        var text = $('#text1').val();
+        var id = $('#tp_id').val();
+        $.ajax({
+            url: '../edit_topic/',
+            type: 'POST',
+            data: {
+                'id': id,
+                'text': text
+            },
+            success: function(data) {
+                if (data == 'ok') {
+                    location.reload()
+                } else {
+                    $('#edit_error').text('提交失败！')
+                }
+            }
+        })
+    })
+</script>
+{% endblock content %}

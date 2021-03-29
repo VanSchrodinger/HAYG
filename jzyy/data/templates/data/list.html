@@ -1,0 +1,195 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+
+<!-- 模态框 -->
+<form method="POST" action="{% url 'data:add_crm' %}" class="needs-validation" id="add-smoke-form">
+    {% csrf_token %}
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">新增考试</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form.name.errors }} {{ form.name.label_tag }} {{ form.name }}</div>
+                        <div class="col-md-12 mb-3">
+                            {{ form.user_code.errors }} {{ form.user_code.label_tag }} {{ form.user_code }}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            {{ form.exam_name.errors }} {{ form.exam_name.label_tag }} {{ form.exam_name }}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            {{ form.time_limit.errors }} {{ form.time_limit.label_tag }} {{ form.time_limit }}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            {{ form.times.errors }} {{ form.times.label_tag }} {{ form.times }}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            {{ form.real_times.errors }} {{ form.real_times.label_tag }} {{ form.real_times }}
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            {{ form.point.errors }} {{ form.point.label_tag }} {{ form.point }}
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" id="msg1" ></span>关闭</button>
+                    <button class="btn btn-primary btn-sm " id="success" type="submit">保存</button>
+                </div>
+</form>
+</div>
+</div>
+</div>
+</form>
+<!-- 查询区 -->
+
+<form method="POST" action="{% url 'data:crmsearch' %}" class="needs-validation mt-2 ">
+    {% csrf_token %}
+    <div class="row pl-3">
+        <label>{{ form1.name.label_tag }}</label>
+        <div class="col-auto ">
+            {{ form1.name.errors }} {{ form1.name }}
+        </div>
+        <div class="col-sm mr-auto ">
+            <button class="btn btn-info btn-sm" type="submit">查询</button>
+        </div>
+</form>
+<div class="col-auto">
+    <form method="post" action="{% url 'data:batch' %}">
+        {% csrf_token %}
+        <a href="{% url 'data:input' %}" class="btn btn-primary btn-sm ">批量导入</a>
+        <button type="button" class="  btn btn-secondary btn-sm  " data-toggle="modal" data-target="#myModal">单次新增</button>
+        <input type="submit" class="btn btn-success btn-sm" name="delete_list" value="批量删除">
+        <a href="http://www.hazq.com/main/aboutus/staffpublic/index.shtml?type=2" class="btn btn-info btn-sm " target="_blank">见证人公示</a>
+</div>
+</div>
+{% endblock header %} {% block content %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="all"></th>
+                <th>名称</th>
+                <th>账号</th>
+                <th>活动名称</th>
+                <th>时间限制(分钟)</th>
+                <th>可作答次数</th>
+                <th>实际作答次数</th>
+                <th>得分</th>
+                <th>创建时间</th>
+            </tr>
+        </thead>
+
+        <tbody id="custinfo_tb">
+            {% for data_info in page.object_list %}
+            <tr>
+                <td><input type="checkbox" name="d2p_list" value="{{data_info.id}}" onclick="userCheck(this)"></td>
+                <td>{{data_info.name}}</td>
+                <td>{{data_info.user_code}}</td>
+                <td>{{data_info.exam_name}}</td>
+                <td>{{data_info.time_limit}}</td>
+                <td>{{data_info.times}}</td>
+                <td>{{data_info.real_times}}</td>
+                {% if data_info.point >= 80 %}
+                <td style="color:red">{{data_info.point}}</td>
+                {% else %}
+                <td style="color:green">{{data_info.point}}</td>
+                {% endif %}
+                <td>{{data_info.create_date}}</td>
+            </tr>
+            {% empty %}
+            <td>无</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+<!-- 分页 -->
+<ul class="pagination justify-content-center">
+    <!-- {# 如果当前页还有上一页 #}  -->
+    {% if page.has_previous %}
+    <li class="page-item">
+        <!-- {# 点击a标签，跳转到上一页链接 ?index 为地址后面拼接的参数 #} -->
+        <a href="?index={{page.previous_page_number}}" class="page-link">上一页</a>
+    </li>
+    {% else %}
+    <!-- {# 如果没有上一页， 则上一页按钮不可点击 #} -->
+    <li class="disabled page-item">
+        <a href="#" class="page-link">上一页</a>
+    </li>
+    {% endif %} {% for page_number in paginator.page_range|slice:"0:15" %}
+    <!-- {# 获取当前页的页码 #}  -->
+    {% if page_number == page.number %}
+    <!-- {# 如果是当前页的话，选中 #} -->
+    <li class="active page-item">
+        <a href="?index={{page_number}}" class="page-link">{{page_number}}</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a href="?index={{page_number}}" class="page-link">{{page_number}}</a>
+    </li>
+    {% endif %} {% endfor %} {% if page.has_next %}
+    <li class="page-item">
+        <a href="?index={{page.next_page_number}}" class="page-link">下一页</a>
+    </li>
+    {% else %}
+    <li class="disabled page-item">
+        <a href="#" class="page-link">下一页</a>
+    </li>
+    {% endif %}
+</ul>
+
+<script>
+    $(function() {
+        //全选,设置chheckbox name='all_contact_id' tbody id=custinfo_tb
+        $("input[name=all]").click(function() {
+            if (this.checked) {
+                $("#custinfo_tb :checkbox").prop("checked", true);
+            } else {
+                $("#custinfo_tb :checkbox").prop("checked", false);
+            }
+        });
+    });
+    //单选 设置name=contact_id
+    function userCheck(ths) {
+        if (ths.checked == false) {
+            $("input[name=all]:checkbox").prop('checked', false);
+        } else {
+            var count = $("input[name='d2p_list']:checkbox:checked").length;
+            if (count == $("input[name='d2p_list']:checkbox").length) {
+                $("input[name=all]:checkbox").prop("checked", true);
+            }
+        }
+    }
+</script>
+
+
+{% if messages %} {% for message in messages %}
+<script>
+    toastr.options = {
+        closeButton: true,
+        debug: true,
+        progressBar: true,
+        positionClass: "toast-top-center",
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "2000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
+    //成功消息提示，默认背景为浅绿色 
+    // toastr.success("新增成功！");
+    $('#messageModal').modal('show')
+</script> {% endfor %} {% endif %} {% endblock content %}

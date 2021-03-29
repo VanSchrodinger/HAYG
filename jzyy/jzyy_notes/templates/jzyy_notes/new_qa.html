@@ -1,0 +1,8 @@
+{% extends 'jzyy_notes\base.html' %} {% load bootstrap4 %} {% block header %}
+<h2>新增一个主题：</h2>
+{% endblock header %} {% block content %}
+<form action="{% url 'jzyy_notes:new_qa' %}" method="POST" class="form">
+    {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+    <button name="submit" class="btn btn-primary">新增</button> {% endbuttons %}
+</form>
+{% endblock content %}

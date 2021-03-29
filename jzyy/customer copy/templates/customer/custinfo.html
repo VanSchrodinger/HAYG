@@ -1,0 +1,229 @@
+{% extends 'jzyy_notes\base.html' %} {% block header %}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">新增任务</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        {{ form.create_date.errors }} {{ form.date.label_tag }} {{ form.create_date }}</div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.title.errors }} {{ form.text.label_tag }} {{ form.title }}</div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.description.errors }} {{ form.date.label_tag }} {{ form.description }}</div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.operator.errors }} {{ form.text.label_tag }} {{ form.operator }}</div>
+                    <div class="col-md-12 mb-3">
+                        {{ form.status.errors }} {{ form.text.label_tag }} {{ form.status }}</div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" id="msg1" ></span>关闭</button>
+                <button class="btn btn-primary btn-sm " id="add_send" type="submit">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form method="POST" action="{% url 'customer:custsearch' %}" class="needs-validation mt-2 ">
+    {% csrf_token %}
+    <div class="row pl-3">
+        <label>{{ form1.cust_style.label_tag }}</label>
+        <div class="col ">
+            {{ form1.cust_style.errors }} {{ form1.cust_style }}
+        </div>
+        <label>{{ form1.source.label_tag }}</label>
+        <div class="col">
+            {{ form1.source.errors }} {{ form1.source }}
+        </div>
+        <label>{{ form1.creator.label_tag }}</label>
+        <div class="col">
+            {{ form1.creator.errors }} {{ form1.creator }}
+        </div>
+    </div>
+    <div class="row pl-3">
+        <label>{{ form1.cust_name.label_tag }}</label>
+        <div class="col ">
+            {{ form1.cust_name.errors }} {{ form1.cust_name }}
+        </div>
+        <label>{{ form1.profession.label_tag }}</label>
+        <div class="col ">
+            {{ form1.profession.errors }} {{ form1.profession }}
+        </div>
+        <label>{{ form1.city.label_tag }}</label>
+        <div class="col ml-3">
+            {{ form1.city.errors }} {{ form1.city }}
+        </div>
+    </div>
+    <div class="row mb-1 ">
+        <div class="col-sm mr-auto">
+            <button type="button" class="  btn btn-secondary btn-sm  " data-toggle="modal" data-target="#myModal">新增</button>
+            <!-- <input type="submit" class="btn btn-secondary btn-sm" name="delete_list" value="删除"> -->
+        </div>
+
+        <div class="col-auto ">
+            <button class="btn btn-info btn-sm" type="submit">查询</button>
+        </div>
+    </div>
+
+
+</form>
+
+<!-- <a href="{% url 'customer:add_cust' %}" class="btn btn-info btn-sm mb-1">新增客户
+</a> -->
+<!-- <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+    新增联系人
+  </button>  -->
+{% endblock header %} {% block content %}
+
+
+<div class="table-responsive">
+    <table class="table table-hover table-sm">
+        <thead class="thead-light">
+            <tr class="">
+                <th><input type="checkbox" name="all"></th>
+                <th>客户名称</th>
+                <th>城市</th>
+                <th>行业</th>
+                <th>联系人</th>
+                <th>项目</th>
+                <th>进展中</th>
+                <th>最近联系时间</th>
+                <th>状态</th>
+                <th>类型</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+
+        <tbody id="custinfo_tb">
+            {% for row in page.object_list %}
+            <tr>
+                <td><input type="checkbox" name="d2p_list" value="{{row.id}}" onclick="userCheck(this)"></td>
+                <td><a class="text-info" href="{% url 'customer:custdetails' row.id %}">{{row.cust_name}}</a></td>
+                <td>{{row.city}}</td>
+                <td>{{row.profession}}</td>
+                <!-- <td>{% firstof row.num '0' %}</td> -->
+                <td>{{row.num|default:'0'}}</td>
+                <td>{{row.num|default:'0'}}</td>
+                <td>{{row.num|default:'0'}}</td>
+                <td>{{row.create_date}}</td>
+                <td>{{row.cust_style}}</td>
+                <td>
+                    {% if row.cust_style == '普通公司'%}
+                    <span class="badge  badge-info text-white ">
+                    {% elif row.cust_style == '开发中的客户'  %}<span class="badge  badge-warning text-white ">
+                    {% elif row.cust_style == '已签约的客户'  %}<span class="badge  badge-success text-white ">
+                    {% elif row.cust_style == '历史客户'  %}<span class="badge  badge-secondary text-white ">{% endif %}
+                    {{row.cust_style}}</span>
+                </td>
+                <td class="dropleft">
+                    <button class="btn btn-white btn-sm  " data-toggle="dropdown">
+                    <svg class="bi bi-card-heading" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h13a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M3 8.5a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9a.5.5 0 01-.5-.5zm0 2a.5.5 0 01.5-.5h6a.5.5 0 010 1h-6a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                        <path d="M3 5.5a.5.5 0 01.5-.5h9a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-9a.5.5 0 01-.5-.5v-1z"/>
+                      </svg>
+                </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item small" href="/topics/0">新增项目</a>
+                        <a class="dropdown-item small" href="{% url 'customer:edit_info' row.id %}">编辑公司</a>
+                    </div>
+                </td>
+
+            </tr>
+            {% empty %}
+            <td>无</td>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<!-- 分页 -->
+<ul class="pagination ">
+    {% if page.has_previous %}
+    <li class="page-item">
+        <a href="?index={{page.previous_page_number}}" class="page-link">上一页</a>
+    </li>
+    {% else %}
+    <li class="disabled page-item">
+        <a href="#" class="page-link">上一页</a>
+    </li>
+    {% endif %} {% for page_number in paginator.page_range %} {% if page_number == page.number %}
+    <li class="active page-item">
+        <a href="?index={{page_number}}" class="page-link">{{page_number}}</a>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a href="?index={{page_number}}" class="page-link">{{page_number}}</a>
+    </li>
+    {% endif %} {% endfor %} {% if page.has_next %}
+    <li class="page-item">
+        <a href="?index={{page.next_page_number}}" class="page-link">下一页</a>
+    </li>
+    {% else %}
+    <li class="disabled page-item">
+        <a href="#" class="page-link">下一页</a>
+    </li>
+    {% endif %}
+</ul>
+<script>
+    $.ajaxSetup({
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }
+    })
+    $('#add_send').on('click', function() {
+        var date = $('#date').val();
+        var text = $('#text').val();
+        $.ajax({
+            url: '../add_job/',
+            type: 'POST',
+            data: {
+                'date': date,
+                'text': text
+            },
+            success: function(data) {
+                if (data == 'ok') {
+                    location.reload()
+                } else {
+                    alert('请检查必填项！')
+                }
+            }
+        })
+    });
+</script>
+<script>
+    $(function() {
+        //全选,设置chheckbox name='all_contact_id' tbody id=custinfo_tb
+        $("input[name=all]").click(function() {
+            if (this.checked) {
+                $("#custinfo_tb :checkbox").prop("checked", true);
+            } else {
+                $("#custinfo_tb :checkbox").prop("checked", false);
+            }
+        });
+    });
+    //单选 设置name=contact_id
+    function userCheck(ths) {
+        if (ths.checked == false) {
+            $("input[name=all]:checkbox").prop('checked', false);
+        } else {
+            var count = $("input[name='d2p_list']:checkbox:checked").length;
+            if (count == $("input[name='d2p_list']:checkbox").length) {
+                $("input[name=all]:checkbox").prop("checked", true);
+            }
+        }
+    }
+</script>
+{% endblock content %}
